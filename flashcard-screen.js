@@ -47,9 +47,12 @@ class FlashcardScreen {
         //console.log(i);
         //console.log(this.Array[i]);
         const card = new Flashcard(flashcardContainer, i, this.Array[i]);
+    }
+        var card = document.querySelector('.flashcard-box');
+        card.style.display='block';
         document.addEventListener('toL',this.toL);
         document.addEventListener('toR',this.toR);
-    }
+
     //const card = new Flashcard(flashcardContainer, 'word', 'definition');
   }
   toR()
@@ -57,12 +60,32 @@ class FlashcardScreen {
       this.R++;
       this.QR.innerHTML=''+this.R+' ';
       this.ToNext=true;
+      var card = document.querySelector('.flashcard-box');
+      card.parentNode.removeChild(card);
+
+      var card = document.querySelector('.flashcard-box');
+      if(card===null)  //time to result
+      {
+
+          return;
+      }
+      card.style.display='block';
   }
   toL()
   {
       this.L++;
       this.QL.innerHTML=''+this.L+' ';
       this.ToNext=true;
+      var card = document.querySelector('.flashcard-box');
+      card.parentNode.removeChild(card);
+
+      var card = document.querySelector('.flashcard-box');
+      if(card===null) //time to result
+      {
+
+          return;
+      }
+      card.style.display='block';
   }
 
   hide() {

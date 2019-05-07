@@ -31,6 +31,8 @@ class Flashcard {
       this.flashcardElement.addEventListener('pointerdown', this.onDragStart);
       this.flashcardElement.addEventListener('pointerup', this.onDragEnd);
       this.flashcardElement.addEventListener('pointermove', this.onDragMove);
+
+      this.flashcardElement.style.display='none';
   }
   onDragStart(event) {
         this.originX = event.clientX;
