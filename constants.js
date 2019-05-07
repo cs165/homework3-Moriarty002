@@ -21,12 +21,12 @@ const FLASHCARD_DECKS = [{
 }, {
   title: 'Foods in Korean',
   words: {
-    '사과': 'apple',
-    '빵': 'bread',
-    '치즈': 'cheese',
-    '우유': 'milk',
-    '커피': 'coffee',
-    '바나나': 'banana',
-    '복숭아': 'peach'
+      '사과': 'apple',
+      '빵': 'bread',
+      '치즈': 'cheese',
+      '우유': 'milk',
+      '커피': 'coffee',
+      '바나나': 'banana',
+      '복숭아': 'peach'
   }
 }];

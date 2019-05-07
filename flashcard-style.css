@@ -1,3 +1,16 @@
 /*
 TODO(you): Write any additional styles you need here.
 */
+.flashcard{
+    animation-duration: 0.5s;
+    animation-name: jump;
+}
+
+@keyframes jump {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: 100%;
+    }
+}

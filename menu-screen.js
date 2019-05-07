@@ -14,6 +14,10 @@ class MenuScreen {
     {
         let child = document.createElement("div");
         child.innerHTML=i.title;
+        child.setAttribute('id','SelectOne');
+        child.addEventListener("click", function () {
+            console.log(this.innerHTML);
+        });
         root.appendChild(child);
     }
   }
