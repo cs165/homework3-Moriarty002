@@ -15,10 +15,12 @@ class MenuScreen {
         let child = document.createElement("div");
         child.innerHTML=i.title;
         child.setAttribute('id','SelectOne');
-        child.addEventListener("click", function () {
-            console.log(this.innerHTML);
-        });
         root.appendChild(child);
+    }
+    var children = document.querySelectorAll('#SelectOne');
+    for (var i in FLASHCARD_DECKS)
+    {
+        children[i].addEventListener('click',this.choosen);
     }
   }
 
@@ -28,5 +30,9 @@ class MenuScreen {
 
   hide() {
     this.containerElement.classList.add('inactive');
+  }
+  choosen(){
+      let ChoiceOne = new CustomEvent('ChoiceOne',{detail:{type:this.innerHTML}})
+      document.dispatchEvent(ChoiceOne);
   }
 }
