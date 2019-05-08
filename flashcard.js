@@ -24,6 +24,9 @@ class Flashcard {
       this.dragStarted = false;
       this.changeColor = true;
 
+      this.tmpR=-1;
+      this.tmpL=-1;
+
     this.flashcardElement = this._createFlashcardDOM(frontText, backText);
     this.containerElement.append(this.flashcardElement);
 
@@ -39,7 +42,10 @@ class Flashcard {
         this.originY = event.clientY;
         this.dragStarted = true;
         event.currentTarget.setPointerCapture(event.pointerId);
-
+        let elementR = document.querySelector('.correct');
+        let elementL = document.querySelector('.incorrect');
+        this.tmpR=parseFloat(elementR.innerHTML);
+        this.tmpL=parseFloat(elementL.innerHTML);
   }
   onDragMove(event) {
         if (! this.dragStarted) {
@@ -53,13 +59,25 @@ class Flashcard {
         this.translateY = this.offsetY + deltaY;
         event.currentTarget.style.transform = 'translate(' +
             this.translateX + 'px, ' + this.translateY + 'px) rotate( ' + this.translateX*0.2 + 'deg )';
-        if(this.translateX >= 150 || this.translateX <= -150)
+        if(this.translateX >= 150)
         {
             document.body.style.backgroundColor='#97b7b7';
+            let element = document.querySelector('.correct');
+            element.innerHTML=''+(this.tmpR+1)+' ';
+        }
+        else if(this.translateX <= -150)
+        {
+            document.body.style.backgroundColor='#97b7b7';
+            let element = document.querySelector('.incorrect');
+            element.innerHTML=''+(this.tmpL+1)+' ';
         }
         else
         {
             document.body.style.backgroundColor='#d0e6df';
+            let ER=document.querySelector('.correct');
+            let EL=document.querySelector('.incorrect');
+            ER.innerHTML=''+this.tmpR+' ';
+            EL.innerHTML=''+this.tmpL+' ';
         }
       this.changeColor = false;
 
@@ -90,6 +108,10 @@ class Flashcard {
           this.offsetY = 0;
           this.translateX=0;
           this.translateY=0;
+          let ER=document.querySelector('.correct');
+          let EL=document.querySelector('.incorrect');
+          ER.innerHTML=''+this.tmpR+' ';
+          EL.innerHTML=''+this.tmpL+' ';
       }
   }
 

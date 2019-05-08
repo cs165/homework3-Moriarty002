@@ -7,12 +7,14 @@
 // - Adding additional fields
 
 class ResultsScreen {
-  constructor(containerElement,R,L,QN) {
+  constructor(containerElement,R,L,QN,Q) {
       this.ToFlash=this.ToFlash.bind(this);
 
     this.R=R;
     this.L=L;
     this.QN=QN;
+    this.Q=Q;
+    this.con;
     this.P=(R/(R+L))*100;
 
     //insert words to the screen
@@ -26,9 +28,16 @@ class ResultsScreen {
 
     this.elementA=document.querySelector('.continue');
     if(this.P === 100)
+    {
         this.elementA.innerHTML='Start over?';
+        this.con=3;
+    }
     else
+    {
         this.elementA.innerHTML='continue';
+        this.con=2;
+    }
+
     this.elementA.addEventListener('click',this.ToFlash);
 
     this.elementB=document.querySelector('.to-menu');
@@ -47,9 +56,10 @@ class ResultsScreen {
       {
           this.elementA.removeEventListener('click',this.ToFlash);
           this.elementB.removeEventListener('click',this.ToMenu);
-          
           let BackFlash =new CustomEvent('BackFlash',{detail:{
-                  QN:this.QN
+                  QN:this.QN,
+                  con:this.con,
+                  Q:this.Q
               }});
           document.dispatchEvent(BackFlash);
       }

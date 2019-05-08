@@ -8,12 +8,13 @@
 // - Adding additional fields
 
 class FlashcardScreen {
-  constructor(containerElement , QuestionName) {
+  constructor(containerElement , QuestionName , Question , Condition) {
       this.containerElement = containerElement;
       this.toR=this.toR.bind(this);
       this.toL=this.toL.bind(this);
 
       this.QN=QuestionName;
+      this.Q=Question;
 
       this.R=0;//number of right
       this.L=0;//number of left
@@ -25,18 +26,23 @@ class FlashcardScreen {
       this.QL.innerText=''+this.L+' ';
 
       this.ToNext=false;
-
-      this.Array=null;// catch the question array
-      if (QuestionName != null)
+      this.Array=null;// catch the question array,Condition==0 Array=null
+      if (Condition===1 || Condition===3)
       {
           for (var i of FLASHCARD_DECKS)
           {
               if(i.title === QuestionName)
               {
-                  this.Array=i.words;
+                  //console.log(i.words);
+                  this.Array = Object.assign({}, i.words); // To prevent "Shallow Copy"
               }
           }
       }
+      else if(Condition===2)
+      {
+          this.Array=Question;
+      }
+      //console.log(Condition);
       //console.log(this.Array);
   }
   show() {
@@ -62,19 +68,25 @@ class FlashcardScreen {
       this.ToNext=true;
 
       //remove right element in both DOM & Array
-
       var card = document.querySelector('.flashcard-box');
+      var Index = card.querySelector('.flashcard');
+      delete this.Array[Index.innerHTML];
       card.parentNode.removeChild(card);
 
       var card = document.querySelector('.flashcard-box');
       if(card===null)  //time to result
       {
+          if(this.L != 0)
+          {
+              this.Q=this.Array;
+          }
           document.removeEventListener('toL',this.toL);
           document.removeEventListener('toR',this.toR);
           let ShowResult = new CustomEvent('ShowResult',{detail:{
               R:this.R,
               L:this.L,
-              QN:this.QN
+              QN:this.QN,
+              Q:this.Q
           }});
           document.dispatchEvent(ShowResult);
           return;
@@ -94,12 +106,17 @@ class FlashcardScreen {
       var card = document.querySelector('.flashcard-box');
       if(card===null) //time to result
       {
+          if(this.L != 0)
+          {
+              this.Q=this.Array;
+          }
           document.removeEventListener('toL',this.toL);
           document.removeEventListener('toR',this.toR);
           let ShowResult = new CustomEvent('ShowResult',{detail:{
                   R:this.R,
                   L:this.L,
-                  QN:this.QN
+                  QN:this.QN,
+                  Q:this.Q
               }});
           document.dispatchEvent(ShowResult);
           return;

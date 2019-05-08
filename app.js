@@ -19,7 +19,7 @@ class App {
     document.addEventListener('ChoiceOne', this.ToFlashCard);
 
     const mainElement = document.querySelector('#main');
-    this.flashcards = new FlashcardScreen(mainElement);
+    this.flashcards = new FlashcardScreen(mainElement,null,null,0);
 
     const resultElement = document.querySelector('#results');
     this.results = new ResultsScreen(resultElement);
@@ -28,7 +28,7 @@ class App {
   {
       //console.info(event.detail.valueOf().type);
       let mainElement = document.querySelector('#main');
-      this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().type);
+      this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().type,null,1);
       this.menu.hide();
       this.flashcards.show();
       document.removeEventListener('ChoiceOne', this.ToFlashCard);
@@ -37,7 +37,7 @@ class App {
   ToResultScreen(event)
   {
       let resultElement = document.querySelector('#results');
-      this.results=new ResultsScreen(resultElement,event.detail.valueOf().R,event.detail.valueOf().L,event.detail.valueOf().QN);
+      this.results=new ResultsScreen(resultElement,event.detail.valueOf().R,event.detail.valueOf().L,event.detail.valueOf().QN,event.detail.valueOf().Q);
       this.flashcards.hide();
       this.results.show();
       document.removeEventListener('ShowResult', this.ToResultScreen);
@@ -52,8 +52,7 @@ class App {
   {
       document.removeEventListener('BackFlash',this.BackFlashCard);
       let mainElement = document.querySelector('#main');
-      console.log(event.detail.valueOf().QN);
-      this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().QN);
+      this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().QN,event.detail.valueOf().Q,event.detail.valueOf().con);
       this.results.hide();
       this.flashcards.show();
       document.addEventListener('ShowResult', this.ToResultScreen);
