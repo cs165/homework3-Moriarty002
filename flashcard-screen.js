@@ -60,13 +60,21 @@ class FlashcardScreen {
       this.R++;
       this.QR.innerHTML=''+this.R+' ';
       this.ToNext=true;
+
+      //remove right element in both DOM & Array
+
       var card = document.querySelector('.flashcard-box');
       card.parentNode.removeChild(card);
 
       var card = document.querySelector('.flashcard-box');
       if(card===null)  //time to result
       {
-
+          let ShowResult = new CustomEvent('ShowResult',{detail:{
+              R:this.R,
+              L:this.L,
+              QN:this.QN
+          }});
+          document.dispatchEvent(ShowResult);
           return;
       }
       card.style.display='block';
@@ -76,13 +84,20 @@ class FlashcardScreen {
       this.L++;
       this.QL.innerHTML=''+this.L+' ';
       this.ToNext=true;
+
+      //remove right element in DOM , but not in Array
       var card = document.querySelector('.flashcard-box');
       card.parentNode.removeChild(card);
 
       var card = document.querySelector('.flashcard-box');
       if(card===null) //time to result
       {
-
+          let ShowResult = new CustomEvent('ShowResult',{detail:{
+                  R:this.R,
+                  L:this.L,
+                  QN:this.QN
+              }});
+          document.dispatchEvent(ShowResult);
           return;
       }
       card.style.display='block';

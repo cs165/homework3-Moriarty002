@@ -15,7 +15,7 @@ class App {
       this.ToResultScreen = this.ToResultScreen.bind(this);
 
     const menuElement = document.querySelector('#menu');
-    this.menu = new MenuScreen(menuElement);
+    this.menu = new MenuScreen(menuElement,1);
     document.addEventListener('ChoiceOne', this.ToFlashCard);
 
     const mainElement = document.querySelector('#main');
@@ -23,14 +23,6 @@ class App {
 
     const resultElement = document.querySelector('#results');
     this.results = new ResultsScreen(resultElement);
-
-    // Uncomment this pair of lines to see the "flashcard" screen:
-    // this.menu.hide();
-    // this.flashcards.show();
-
-    // Uncomment this pair of lines to see the "results" screen:
-    // this.menu.hide();
-    // this.results.show();
   }
   ToFlashCard(event)
   {
@@ -43,21 +35,22 @@ class App {
   }
   ToResultScreen(event)
   {
-      this.results=new ResultsScreen(resultElement);
+      let resultElement = document.querySelector('#results');
+      this.results=new ResultsScreen(resultElement,event.detail.valueOf().R,event.detail.valueOf().L,event.detail.valueOf().QN);
       this.flashcards.hide();
       this.results.show();
       document.addEventListener('ToMenu',this.ToMenuScreen);
       document.addEventListener('BackFlash',this.BackFlashCard);
   }
-  ToMenuScreen(event)
+  ToMenuScreen()
   {
-      this.menu = new MenuScreen(this.menuElement);
-      this.results.hide();
-      this.menu.show();
+      location.reload();
   }
   BackFlashCard(event)
   {
-      this.flashcards=new FlashcardScreen(this.mainElement);
+      console.log(event.detail);
+      let mainElement = document.querySelector('#main');
+      this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().QN);
       this.results.hide();
       this.flashcards.show();
   }

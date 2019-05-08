@@ -7,8 +7,10 @@
 // - Adding additional fields
 
 class MenuScreen {
-  constructor(containerElement) {
+  constructor(containerElement , flag) {
     this.containerElement = containerElement;
+    if(!flag)
+        return;
     var root = containerElement.querySelector("#choices");
     for(var i of FLASHCARD_DECKS)
     {
