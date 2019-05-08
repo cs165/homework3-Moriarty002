@@ -24,15 +24,15 @@ class ResultsScreen {
       element[1].innerHTML=''+this.L+' ';
     this.containerElement = containerElement;
 
-    let elementA=document.querySelector('.continue');
+    this.elementA=document.querySelector('.continue');
     if(this.P === 100)
-        elementA.innerHTML='Start over?';
+        this.elementA.innerHTML='Start over?';
     else
-        elementA.innerHTML='continue';
-    elementA.addEventListener('click',this.ToFlash);
+        this.elementA.innerHTML='continue';
+    this.elementA.addEventListener('click',this.ToFlash);
 
-    let elementB=document.querySelector('.to-menu');
-    elementB.addEventListener('click',this.ToMenu);
+    this.elementB=document.querySelector('.to-menu');
+    this.elementB.addEventListener('click',this.ToMenu);
   }
 
   show(numberCorrect, numberWrong) {
@@ -43,11 +43,16 @@ class ResultsScreen {
   }
   ToFlash()
   {
-      console.log(this.QN);
-      let BackFlash =new CustomEvent('BackFlash',{detail:{
-          QN:this.QN
-          }});
-      document.dispatchEvent(BackFlash);
+      if(this.QN != null)
+      {
+          this.elementA.removeEventListener('click',this.ToFlash);
+          this.elementB.removeEventListener('click',this.ToMenu);
+          
+          let BackFlash =new CustomEvent('BackFlash',{detail:{
+                  QN:this.QN
+              }});
+          document.dispatchEvent(BackFlash);
+      }
   }
   ToMenu()
   {

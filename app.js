@@ -31,6 +31,7 @@ class App {
       this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().type);
       this.menu.hide();
       this.flashcards.show();
+      document.removeEventListener('ChoiceOne', this.ToFlashCard);
       document.addEventListener('ShowResult', this.ToResultScreen);
   }
   ToResultScreen(event)
@@ -39,6 +40,7 @@ class App {
       this.results=new ResultsScreen(resultElement,event.detail.valueOf().R,event.detail.valueOf().L,event.detail.valueOf().QN);
       this.flashcards.hide();
       this.results.show();
+      document.removeEventListener('ShowResult', this.ToResultScreen);
       document.addEventListener('ToMenu',this.ToMenuScreen);
       document.addEventListener('BackFlash',this.BackFlashCard);
   }
@@ -48,10 +50,12 @@ class App {
   }
   BackFlashCard(event)
   {
-      console.log(event.detail);
+      document.removeEventListener('BackFlash',this.BackFlashCard);
       let mainElement = document.querySelector('#main');
+      console.log(event.detail.valueOf().QN);
       this.flashcards=new FlashcardScreen(mainElement,event.detail.valueOf().QN);
       this.results.hide();
       this.flashcards.show();
+      document.addEventListener('ShowResult', this.ToResultScreen);
   }
 }

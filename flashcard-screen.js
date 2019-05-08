@@ -44,14 +44,14 @@ class FlashcardScreen {
     const flashcardContainer = document.querySelector('#flashcard-container');
     for(var i of Object.keys(this.Array))
     {
-        //console.log(i);
-        //console.log(this.Array[i]);
         const card = new Flashcard(flashcardContainer, i, this.Array[i]);
     }
-        var card = document.querySelector('.flashcard-box');
-        card.style.display='block';
-        document.addEventListener('toL',this.toL);
-        document.addEventListener('toR',this.toR);
+
+
+    var card = document.querySelector('.flashcard-box');
+    card.style.display='block';
+    document.addEventListener('toL',this.toL);
+    document.addEventListener('toR',this.toR);
 
     //const card = new Flashcard(flashcardContainer, 'word', 'definition');
   }
@@ -69,6 +69,8 @@ class FlashcardScreen {
       var card = document.querySelector('.flashcard-box');
       if(card===null)  //time to result
       {
+          document.removeEventListener('toL',this.toL);
+          document.removeEventListener('toR',this.toR);
           let ShowResult = new CustomEvent('ShowResult',{detail:{
               R:this.R,
               L:this.L,
@@ -92,6 +94,8 @@ class FlashcardScreen {
       var card = document.querySelector('.flashcard-box');
       if(card===null) //time to result
       {
+          document.removeEventListener('toL',this.toL);
+          document.removeEventListener('toR',this.toR);
           let ShowResult = new CustomEvent('ShowResult',{detail:{
                   R:this.R,
                   L:this.L,
