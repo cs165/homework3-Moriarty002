@@ -19,7 +19,7 @@ class ResultsScreen {
 
     //insert words to the screen
     let element = document.querySelector('.percent');
-    element.innerHTML=''+parseFloat(this.P.toFixed(2))+' ';
+    element.innerHTML=''+parseFloat(this.P.toFixed(0))+' ';
     element=document.querySelectorAll('.correct');
       element[1].innerHTML=''+this.R+' ';
     element=document.querySelectorAll('.incorrect');
